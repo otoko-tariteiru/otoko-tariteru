@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+:root {
+  --color-paper: #ffffff;
+  --color-ink: #111111;
+  --color-ink-soft: #3a3a3a;
+  --color-line: #dcdcdc;
+  --color-mist: #f4f4f4;
+}
+
+@theme inline {
+  --color-paper: var(--color-paper);
+  --color-ink: var(--color-ink);
+  --color-ink-soft: var(--color-ink-soft);
+  --color-line: var(--color-line);
+  --color-mist: var(--color-mist);
+  --font-serif-jp: "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", "Noto Serif JP", serif;
+  --font-sans-jp: "Yu Gothic", "YuGothic", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+}
+
+html {
+  background: var(--color-paper);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-serif-jp);
+  line-height: 1.9;
+  letter-spacing: 0.02em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+a {
+  color: inherit;
+}
+
+/* quiet fade-in for scroll reveals; respects reduced-motion */
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  animation: reveal-in 900ms ease-out forwards;
+  animation-play-state: paused;
+}
+
+.reveal.is-visible {
+  animation-play-state: running;
+}
+
+@keyframes reveal-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+.focus-line:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 4px;
+}
