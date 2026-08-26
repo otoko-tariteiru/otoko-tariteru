@@ -17,7 +17,7 @@ export default function NightPage() {
       <p className="mt-6 text-[15px] leading-loose text-ink-soft">
         無料の本編では、閉じたドアの内側。
         <br />
-        番外編として、noteで個別に販売しています。
+        近日公開の番外編です。
       </p>
 
       <p className="mt-8 border border-line bg-mist px-5 py-4 text-[13px] leading-relaxed text-ink-soft">
@@ -37,7 +37,7 @@ export default function NightPage() {
               <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
                 <p className="text-lg sm:text-xl">{n.title}</p>
                 <p className="shrink-0 text-[12px] tracking-wide text-ink-soft">
-                  夜の話 &middot; {n.priceLabel}
+                  夜の話{n.status === "published" ? ` · ${n.priceLabel}` : ""}
                 </p>
               </div>
               <p className="mt-3 text-[12px] tracking-wide text-ink-soft">

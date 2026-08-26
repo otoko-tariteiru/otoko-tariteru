@@ -117,19 +117,23 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="mt-16 border-t border-line pt-10">
-            <p className="text-[12px] tracking-[0.2em] text-ink-soft">
-              NEXT EPISODE
-            </p>
-            <p className="mt-4 text-xl sm:text-2xl">
-              {formatMonthDay(siteConfig.nextEpisodeDate)}{" "}
-              {formatTime(siteConfig.nextEpisodeDate)}
-            </p>
-            <p className="mt-3 text-[15px] leading-relaxed">
-              第{siteConfig.nextEpisodeNumber}話「{siteConfig.nextEpisodeTitle}
-              」
-            </p>
-          </div>
+          {siteConfig.nextEpisodeDate &&
+            siteConfig.nextEpisodeNumber &&
+            siteConfig.nextEpisodeTitle && (
+              <div className="mt-16 border-t border-line pt-10">
+                <p className="text-[12px] tracking-[0.2em] text-ink-soft">
+                  NEXT EPISODE
+                </p>
+                <p className="mt-4 text-xl sm:text-2xl">
+                  {formatMonthDay(siteConfig.nextEpisodeDate)}{" "}
+                  {formatTime(siteConfig.nextEpisodeDate)}
+                </p>
+                <p className="mt-3 text-[15px] leading-relaxed">
+                  第{siteConfig.nextEpisodeNumber}話「
+                  {siteConfig.nextEpisodeTitle}」
+                </p>
+              </div>
+            )}
 
           <div className="mt-14">
             <Link

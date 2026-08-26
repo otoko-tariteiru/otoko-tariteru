@@ -1,14 +1,24 @@
-export type StoryStatus = "published" | "scheduled" | "draft";
+// このファイルの内容は CANON.md (作品正史) と矛盾してはいけない。
+// 事実を編集する前に必ず CANON.md を確認すること。不明な点は null / false のままにする。
+
+export type PublicationStatus =
+  | "published"
+  | "scheduled"
+  | "draft"
+  | "unverified";
+
+export type TitleStatus = "confirmed" | "working" | "unknown";
 
 export interface Story {
   id: string;
   episode: number;
-  title: string;
+  title: string | null;
+  titleStatus: TitleStatus;
   slug: string;
-  publishedAt: string; // ISO date. 未公開/予告はscheduled日時。
-  status: StoryStatus;
-  excerpt: string; // draft は空文字でよい(一覧で詳細を見せないため)
-  theme: string;
+  publishedAt: string | null; // ISO date。未確定はnull
+  publicationStatus: PublicationStatus;
+  excerpt: string | null;
+  excerptApproved: boolean; // falseの場合、一覧・詳細どちらにもexcerptを出さない
   noteUrl: string | null;
   isPaid: boolean;
   series: string;
@@ -19,12 +29,13 @@ export const stories: Story[] = [
     id: "ep01",
     episode: 1,
     title: "僕の筋肉を褒めない20歳",
+    titleStatus: "confirmed",
     slug: "ep01",
     publishedAt: "2026-08-10T21:00:00+09:00",
-    status: "published",
+    publicationStatus: "published",
     excerpt:
       "腕を褒められることには慣れている。褒めない男が、いちばん気になる。",
-    theme: "距離",
+    excerptApproved: true,
     noteUrl: "https://note.com/otoko_tariteru/n/n3d4c5c07a817",
     isPaid: false,
     series: "第1部",
@@ -33,12 +44,12 @@ export const stories: Story[] = [
     id: "ep02",
     episode: 2,
     title: "位置情報に知らない男がいる",
+    titleStatus: "confirmed",
     slug: "ep02",
     publishedAt: "2026-08-13T21:00:00+09:00",
-    status: "published",
-    excerpt:
-      "地図の上の丸いアイコンが、知らない駅で止まっている。名前も知らない男の分だけ、心配は増える。",
-    theme: "嫉妬",
+    publicationStatus: "published",
+    excerpt: null,
+    excerptApproved: false,
     noteUrl: "https://note.com/otoko_tariteru/n/na84be7b4061d",
     isPaid: false,
     series: "第1部",
@@ -47,12 +58,13 @@ export const stories: Story[] = [
     id: "ep03",
     episode: 3,
     title: "車の中では、あまり話すことがない",
+    titleStatus: "confirmed",
     slug: "ep03",
     publishedAt: "2026-08-17T21:00:00+09:00",
-    status: "published",
+    publicationStatus: "published",
     excerpt:
       "赤信号のたびに、話すことを探すのをやめた。沈黙のほうが、まだ嘘がない。",
-    theme: "沈黙",
+    excerptApproved: true,
     noteUrl: "https://note.com/otoko_tariteru/n/nc60e18b8db1c",
     isPaid: false,
     series: "第1部",
@@ -60,13 +72,14 @@ export const stories: Story[] = [
   {
     id: "ep04",
     episode: 4,
-    title: "東京ばな奈を渡された夜",
+    // 公開済みタイトルは未確認。ユーザーが確認するまで「第4話」とだけ表示する。
+    title: null,
+    titleStatus: "unknown",
     slug: "ep04",
     publishedAt: "2026-08-20T21:00:00+09:00",
-    status: "published",
-    excerpt:
-      "旅行に行っていたことを、東京ばな奈で知った。土産話より先に、駐車場代の話をした。",
-    theme: "すれ違い",
+    publicationStatus: "published",
+    excerpt: null,
+    excerptApproved: false,
     noteUrl: "https://note.com/otoko_tariteru/n/n19f0284a9bca",
     isPaid: false,
     series: "第1部",
@@ -75,12 +88,13 @@ export const stories: Story[] = [
     id: "ep05",
     episode: 5,
     title: "深夜の添い寝募集",
+    titleStatus: "confirmed",
     slug: "ep05",
     publishedAt: "2026-08-24T21:00:00+09:00",
-    status: "published",
-    excerpt:
-      "誰かの隣で眠りたい夜に限って、誰も隣にいない。募集をかけるのは、いつも自分からだった。",
-    theme: "孤独",
+    publicationStatus: "published",
+    excerpt: null,
+    excerptApproved: false,
+    // note URL未確認
     noteUrl: null,
     isPaid: false,
     series: "第1部",
@@ -89,12 +103,13 @@ export const stories: Story[] = [
     id: "ep06",
     episode: 6,
     title: "会えたのに、少し虚しかった",
+    titleStatus: "working",
     slug: "ep06",
-    publishedAt: "2026-08-26T20:30:00+09:00",
-    status: "scheduled",
-    excerpt:
-      "会いたかったはずの日に、会えたのに何かが足りなかった。足りないのは、多分、男の数ではない。",
-    theme: "空虚",
+    // note公開の完了が未確認のため日時を確定表示しない
+    publishedAt: null,
+    publicationStatus: "unverified",
+    excerpt: null,
+    excerptApproved: false,
     noteUrl: null,
     isPaid: false,
     series: "第1部",
@@ -103,11 +118,12 @@ export const stories: Story[] = [
     id: "ep07",
     episode: 7,
     title: "名前を呼ばれたことがない",
+    titleStatus: "working",
     slug: "ep07",
-    publishedAt: "2026-09-02T21:00:00+09:00",
-    status: "draft",
-    excerpt: "",
-    theme: "名前",
+    publishedAt: null,
+    publicationStatus: "draft",
+    excerpt: null,
+    excerptApproved: false,
     noteUrl: null,
     isPaid: false,
     series: "第1部",
@@ -116,11 +132,12 @@ export const stories: Story[] = [
     id: "ep08",
     episode: 8,
     title: "まつ毛が長い",
+    titleStatus: "working",
     slug: "ep08",
-    publishedAt: "2026-09-06T21:00:00+09:00",
-    status: "draft",
-    excerpt: "",
-    theme: "身体",
+    publishedAt: null,
+    publicationStatus: "draft",
+    excerpt: null,
+    excerptApproved: false,
     noteUrl: null,
     isPaid: false,
     series: "第1部",
@@ -129,11 +146,12 @@ export const stories: Story[] = [
     id: "ep09",
     episode: 9,
     title: "7年暮らす男の隣で",
+    titleStatus: "working",
     slug: "ep09",
-    publishedAt: "2026-09-10T21:00:00+09:00",
-    status: "draft",
-    excerpt: "",
-    theme: "家族",
+    publishedAt: null,
+    publicationStatus: "draft",
+    excerpt: null,
+    excerptApproved: false,
     noteUrl: null,
     isPaid: false,
     series: "第1部",
@@ -142,11 +160,12 @@ export const stories: Story[] = [
     id: "ep10",
     episode: 10,
     title: "大学1年生だった男",
+    titleStatus: "working",
     slug: "ep10",
-    publishedAt: "2026-09-14T21:00:00+09:00",
-    status: "draft",
-    excerpt: "",
-    theme: "過去",
+    publishedAt: null,
+    publicationStatus: "draft",
+    excerpt: null,
+    excerptApproved: false,
     noteUrl: null,
     isPaid: false,
     series: "第1部",
@@ -155,11 +174,12 @@ export const stories: Story[] = [
     id: "ep11",
     episode: 11,
     title: "愛知にいない男",
+    titleStatus: "working",
     slug: "ep11",
-    publishedAt: "2026-09-18T21:00:00+09:00",
-    status: "draft",
-    excerpt: "",
-    theme: "遠さ",
+    publishedAt: null,
+    publicationStatus: "draft",
+    excerpt: null,
+    excerptApproved: false,
     noteUrl: null,
     isPaid: false,
     series: "第1部",
@@ -168,11 +188,12 @@ export const stories: Story[] = [
     id: "ep12",
     episode: 12,
     title: "毎日会いたがった男",
+    titleStatus: "working",
     slug: "ep12",
-    publishedAt: "2026-09-22T21:00:00+09:00",
-    status: "draft",
-    excerpt: "",
-    theme: "執着",
+    publishedAt: null,
+    publicationStatus: "draft",
+    excerpt: null,
+    excerptApproved: false,
     noteUrl: null,
     isPaid: false,
     series: "第1部",
@@ -181,11 +202,12 @@ export const stories: Story[] = [
     id: "ep13",
     episode: 13,
     title: "一度しか会っていない男たち",
+    titleStatus: "working",
     slug: "ep13",
-    publishedAt: "2026-09-26T21:00:00+09:00",
-    status: "draft",
-    excerpt: "",
-    theme: "数",
+    publishedAt: null,
+    publicationStatus: "draft",
+    excerpt: null,
+    excerptApproved: false,
     noteUrl: null,
     isPaid: false,
     series: "第1部",
@@ -194,11 +216,12 @@ export const stories: Story[] = [
     id: "ep14",
     episode: 14,
     title: "猫を飼っている家の匂い",
+    titleStatus: "working",
     slug: "ep14",
-    publishedAt: "2026-09-30T21:00:00+09:00",
-    status: "draft",
-    excerpt: "",
-    theme: "匂い",
+    publishedAt: null,
+    publicationStatus: "draft",
+    excerpt: null,
+    excerptApproved: false,
     noteUrl: null,
     isPaid: false,
     series: "第1部",
@@ -207,11 +230,12 @@ export const stories: Story[] = [
     id: "ep15",
     episode: 15,
     title: "男は何人いれば足りるのか",
+    titleStatus: "working",
     slug: "ep15",
-    publishedAt: "2026-10-04T21:00:00+09:00",
-    status: "draft",
-    excerpt: "",
-    theme: "問い",
+    publishedAt: null,
+    publicationStatus: "draft",
+    excerpt: null,
+    excerptApproved: false,
     noteUrl: null,
     isPaid: false,
     series: "第1部",
@@ -220,30 +244,37 @@ export const stories: Story[] = [
     id: "ep16",
     episode: 16,
     title: "それでも男は足りている",
+    titleStatus: "working",
     slug: "ep16",
-    publishedAt: "2026-10-08T21:00:00+09:00",
-    status: "draft",
-    excerpt: "",
-    theme: "答え",
+    publishedAt: null,
+    publicationStatus: "draft",
+    excerpt: null,
+    excerptApproved: false,
     noteUrl: null,
     isPaid: false,
     series: "第1部",
   },
 ];
 
+export function displayTitle(story: Story): string {
+  if (story.titleStatus === "unknown" || !story.title) {
+    return `第${story.episode}話`;
+  }
+  return story.title;
+}
+
 export function getPublishedStories(): Story[] {
   return stories
-    .filter((s) => s.status === "published")
+    .filter((s) => s.publicationStatus === "published")
     .sort((a, b) => b.episode - a.episode);
 }
 
 export function getVisibleStories(): Story[] {
-  // published と scheduled は目次に出す(scheduled は詳細を隠す)。draft はタイトルのみ。
   return [...stories].sort((a, b) => a.episode - b.episode);
 }
 
 export function getLatestStory(): Story {
-  const published = stories.filter((s) => s.status === "published");
+  const published = stories.filter((s) => s.publicationStatus === "published");
   return published.reduce((latest, s) =>
     s.episode > latest.episode ? s : latest
   );

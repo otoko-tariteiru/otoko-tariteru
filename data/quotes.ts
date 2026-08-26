@@ -25,6 +25,10 @@ export const quotes: Quote[] = [
 ];
 
 export const featuredStory = {
-  lines: ["その日は2人の男に会った。", "帰宅して、", "3人目のログインを確認した。"],
+  lines: [
+    "最初は、会えればよかった。",
+    "会えるようになった。",
+    "すると今度は、向こうから会いたがられたくなった。",
+  ],
   href: null as string | null,
 };

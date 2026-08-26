@@ -6,6 +6,11 @@ Next.js (App Router) + TypeScript + Tailwind CSS。
 本文全文はnote側にあり、このサイトは話数・予告・世界観を管理するための「編集部」的な場所です。
 話数やSNSリンクなどの更新は、`data/` 以下のファイルを書き換えるだけで反映されます(管理画面なし)。
 
+> **作品内容を変更する前に、必ず `CANON.md` を確認すること。**
+> `CANON.md` はこの作品の唯一の事実ソース(Single Source of Truth)です。
+> `CANON.md` にない出来事・会話・タイトル・公開状況をAIや人力で推測して補完しないこと。
+> 恒久的な作業ルールは `CLAUDE.md` にまとめてあります。
+
 ---
 
 ## 1. ローカル起動方法
@@ -40,25 +45,30 @@ npm run start
 
 ## 3. 新しい話を追加する方法
 
-`data/stories.ts` の配列に1件追加、または該当話の `status` を書き換えます。
+**先に `CANON.md` を確認・更新すること。** サイトのデータはCANONの事実と一致していなければなりません。
+
+`data/stories.ts` の配列に1件追加、または該当話のフィールドを書き換えます。
 
 ```ts
 {
   id: "ep07",
   episode: 7,
   title: "名前を呼ばれたことがない",
+  titleStatus: "confirmed", // "confirmed" | "working" | "unknown"
   slug: "ep07",
-  publishedAt: "2026-09-02T21:00:00+09:00",
-  status: "published", // draft → scheduled → published と進める
+  publishedAt: "2026-09-02T21:00:00+09:00", // 未確定なら null
+  publicationStatus: "published", // "draft" | "scheduled" | "unverified" | "published"
   excerpt: "ここに短い抜粋を書く。",
-  theme: "名前",
+  excerptApproved: true, // falseの間は一覧・詳細どちらにもexcerptを表示しない
   noteUrl: "https://note.com/otoko_tariteru/n/xxxxxxxx",
   isPaid: false,
   series: "第1部",
 },
 ```
 
-- `status` は `draft`(近日公開・詳細非表示) → `scheduled`(予告・NEXT EPISODEに使用可) → `published`(通常公開) の3段階。
+- `publicationStatus`: `draft`(近日公開・詳細非表示) → `scheduled`(日時確定済みの予告) → `published`(公開済み)。事実確認が取れていない場合は `unverified` にする(「確認中」と表示され、本文詳細は出ない)。
+- `titleStatus`: 実際の公開タイトルが未確認なら `unknown` にする(画面には「第N話」とだけ表示される)。`working` はまだ確定していない仮タイトル。
+- `excerptApproved`: 抜粋文がCANONの事実と一致していると確認できるまでは `false` のままにする。AIに新しい抜粋を作文させない。
 - `published` にすると `/stories` の一覧と `/stories/[slug]` に自動で表示されます。
 - 公開したら `data/siteConfig.ts` の `currentEpisode` も更新してください(進捗表示に反映されます)。
 
@@ -80,7 +90,7 @@ URLが `null` の間は、詳細ページに「noteのリンクは準備中で�
 
 ## 5. NEXT EPISODEを更新する方法
 
-`data/siteConfig.ts` の以下4項目を書き換えるとトップページの「NEXT EPISODE」表示に反映されます。
+`data/siteConfig.ts` の以下3項目を書き換えるとトップページの「NEXT EPISODE」表示に反映されます。
 
 ```ts
 nextEpisodeNumber: 7,
@@ -88,8 +98,10 @@ nextEpisodeDate: "2026-09-02T21:00:00+09:00",
 nextEpisodeTitle: "名前を呼ばれたことがない",
 ```
 
-該当話を `data/stories.ts` 側で `status: "scheduled"` にしておくと、`/stories` 一覧にも「予告」として表示されます。
-公開のタイミングで `status: "published"` に変更し、`noteUrl` を追加してください。
+**3つとも `null` の間はNEXT EPISODEセクション自体が非表示になります。** 日時が確定していない場合や、前回の予告が過去日時のまま残っている場合は、推測で埋めずに `null` のままにしてください。
+
+該当話を `data/stories.ts` 側で `publicationStatus: "scheduled"` にしておくと、`/stories` 一覧にも「予告」として表示されます。
+公開のタイミングで `publicationStatus: "published"` に変更し、`noteUrl` を追加してください。
 
 ---
 
@@ -122,7 +134,7 @@ xUrl: "https://x.com/otoko_tariteru",
 noteUrl: "https://note.com/otoko_tariteru",
 ```
 
-MEDIAページの問い合わせ先メールアドレスも同ファイルの `mediaEmail` で管理しています。
+MEDIAページの問い合わせ先メールアドレスも同ファイルの `mediaEmail` で管理しています。実在し受信可能なアドレスが決まるまでは `null` のままにしてください(`null` の間は「お問い合わせ窓口は準備中です。」と表示されます)。
 
 ---
 

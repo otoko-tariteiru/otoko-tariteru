@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { stories, getStoryBySlug } from "@/data/stories";
+import { stories, getStoryBySlug, displayTitle } from "@/data/stories";
 import { formatDateDots, padEpisode } from "@/lib/format";
 
 export function generateStaticParams() {
@@ -17,9 +17,15 @@ export async function generateMetadata({
   const story = getStoryBySlug(slug);
   if (!story) return {};
 
+  const title = displayTitle(story);
+  const description =
+    story.excerptApproved && story.excerpt
+      ? story.excerpt
+      : `第${story.episode}話「${title}」`;
+
   return {
-    title: `第${story.episode}話「${story.title}」`,
-    description: story.excerpt || `第${story.episode}話「${story.title}」`,
+    title: `第${story.episode}話「${title}」`,
+    description,
   };
 }
 
@@ -32,7 +38,8 @@ export default async function StoryPage({
   const story = getStoryBySlug(slug);
   if (!story) notFound();
 
-  const isDraft = story.status === "draft";
+  const title = displayTitle(story);
+  const isReadable = story.publicationStatus === "published";
 
   return (
     <div className="mx-auto max-w-xl px-6 py-20 sm:px-8 sm:py-28">
@@ -47,23 +54,22 @@ export default async function StoryPage({
         EPISODE {padEpisode(story.episode)} / {stories.length}
       </p>
 
-      <h1 className="mt-4 text-3xl leading-snug sm:text-4xl">
-        {story.title}
-      </h1>
+      <h1 className="mt-4 text-3xl leading-snug sm:text-4xl">{title}</h1>
 
       <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-[13px] tracking-wide text-ink-soft">
-        {story.status === "scheduled" ? (
+        {story.publicationStatus === "scheduled" && story.publishedAt ? (
           <span>予告 {formatDateDots(story.publishedAt)}</span>
-        ) : story.status === "published" ? (
+        ) : story.publicationStatus === "published" && story.publishedAt ? (
           <span>{formatDateDots(story.publishedAt)}</span>
+        ) : story.publicationStatus === "unverified" ? (
+          <span>確認中</span>
         ) : (
           <span>近日公開</span>
         )}
-        {!isDraft && <span>{story.theme}</span>}
         {story.isPaid && <span>PAID</span>}
       </div>
 
-      {isDraft ? (
+      {!isReadable ? (
         <p className="mt-14 text-[15px] leading-loose text-ink-soft">
           まだここにはない話。
           <br />
@@ -71,7 +77,7 @@ export default async function StoryPage({
         </p>
       ) : (
         <>
-          {story.excerpt && (
+          {story.excerptApproved && story.excerpt && (
             <p className="mt-14 text-[17px] leading-loose">
               「{story.excerpt}」
             </p>
@@ -89,9 +95,7 @@ export default async function StoryPage({
               </a>
             ) : (
               <p className="text-[13px] tracking-wide text-ink-soft">
-                {story.status === "scheduled"
-                  ? "公開時にnoteのリンクが追加されます。"
-                  : "noteのリンクは準備中です。"}
+                noteのリンクは準備中です。
               </p>
             )}
           </div>

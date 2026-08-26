@@ -11,22 +11,23 @@ export const siteConfig = {
   seriesPart: "第1部",
   seriesStatus: "連載中",
 
-  // 次回予告(この4項目を書き換えれば トップページの NEXT EPISODE が更新される)
-  nextEpisodeNumber: 6,
-  nextEpisodeDate: "2026-08-26T20:30:00+09:00",
-  nextEpisodeTitle: "会えたのに、少し虚しかった",
-  nextEpisodeNote: "",
+  // 次回予告。日時が確定するまでは null のままにする(AIが日時を推測しないこと)。
+  // nextEpisodeDate が null の間、トップページの NEXT EPISODE セクションは非表示になる。
+  // 過去日時のまま放置しない — 公開が確認できたら published 側のデータ(stories.ts)を更新すること。
+  nextEpisodeNumber: null as number | null,
+  nextEpisodeDate: null as string | null,
+  nextEpisodeTitle: null as string | null,
 
   // 外部リンク
   xHandle: "@otoko_tariteru",
   xUrl: "https://x.com/otoko_tariteru",
   noteUrl: "https://note.com/otoko_tariteru",
 
-  // MEDIA ページの問い合わせ先(将来フォームに差し替え可能)
-  mediaEmail: "media@otoko-tariteru.jp",
+  // MEDIA ページの問い合わせ先。実在し受信可能なアドレスを確認できるまでは null のままにする。
+  mediaEmail: null as string | null,
 
   // SEO
-  siteUrl: "https://otoko-tariteru.example",
+  siteUrl: "https://otoko-tariteru.vercel.app",
   description:
     "36歳、バイ。男には困っていない。それでも、1人の20歳からのLINEを待っている。X・noteで連載中。",
 } as const;

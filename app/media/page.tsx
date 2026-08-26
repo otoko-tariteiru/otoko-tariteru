@@ -21,12 +21,18 @@ export default function MediaPage() {
       </p>
 
       <div className="mt-12 border-t border-line pt-10">
-        <a
-          href={`mailto:${siteConfig.mediaEmail}`}
-          className="focus-line border-b border-ink pb-1 text-lg hover:opacity-60"
-        >
-          {siteConfig.mediaEmail}
-        </a>
+        {siteConfig.mediaEmail ? (
+          <a
+            href={`mailto:${siteConfig.mediaEmail}`}
+            className="focus-line border-b border-ink pb-1 text-lg hover:opacity-60"
+          >
+            {siteConfig.mediaEmail}
+          </a>
+        ) : (
+          <p className="text-[15px] leading-loose text-ink-soft">
+            お問い合わせ窓口は準備中です。
+          </p>
+        )}
       </div>
     </div>
   );

@@ -18,10 +18,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   const storyRoutes = stories
-    .filter((s) => s.status !== "draft")
+    .filter((s) => s.publicationStatus === "published")
     .map((s) => ({
       url: `${base}/stories/${s.slug}`,
-      lastModified: new Date(s.publishedAt),
+      lastModified: s.publishedAt ? new Date(s.publishedAt) : new Date(),
     }));
 
   return [...staticRoutes, ...storyRoutes];
