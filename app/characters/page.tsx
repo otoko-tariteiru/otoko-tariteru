@@ -17,11 +17,6 @@ export default function CharactersPage() {
     <div className="mx-auto max-w-xl px-6 py-20 sm:px-8 sm:py-28">
       <p className="text-[12px] tracking-[0.2em] text-ink-soft">CHARACTERS</p>
       <h1 className="mt-4 text-3xl sm:text-4xl">登場人物</h1>
-      <p className="mt-6 text-[14px] leading-relaxed text-ink-soft">
-        名前は変えている。ここでは、僕との関係だけを書く。
-        <br />
-        学校名、勤務先、住所など、個人を特定できる情報は書かない。
-      </p>
 
       <div className="mt-16">
         <p className="text-[12px] tracking-[0.2em] text-ink-soft">MAIN</p>
