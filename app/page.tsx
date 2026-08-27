@@ -165,8 +165,6 @@ export default function Home() {
             CHARACTERS
           </p>
           <p className="mt-4 text-[15px] leading-loose text-ink-soft">
-            名前は変えている。
-            <br />
             関係の数だけ、理由がある。
           </p>
           <div className="mt-8">
