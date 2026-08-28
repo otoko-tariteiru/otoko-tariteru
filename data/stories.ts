@@ -102,23 +102,24 @@ export const stories: Story[] = [
   {
     id: "ep06",
     episode: 6,
+    // note公開を確認済み(CANON.md §4 Episode 06 / §11)
     title: "会えたのに、少し虚しかった",
-    titleStatus: "working",
+    titleStatus: "confirmed",
     slug: "ep06",
-    // note公開の完了が未確認のため日時を確定表示しない
-    publishedAt: null,
-    publicationStatus: "unverified",
+    publishedAt: "2026-08-26T22:13:00+09:00",
+    publicationStatus: "published",
     excerpt: null,
     excerptApproved: false,
-    noteUrl: null,
+    noteUrl: "https://note.com/otoko_tariteru/n/n6d886a37ad58",
     isPaid: false,
     series: "第1部",
   },
   {
     id: "ep07",
     episode: 7,
+    // タイトルは確定(CANON.md §4 Episode 07)。note公開URL/日時は未確認のため draft を維持する。
     title: "名前を呼ばれたことがない",
-    titleStatus: "working",
+    titleStatus: "confirmed",
     slug: "ep07",
     publishedAt: null,
     publicationStatus: "draft",

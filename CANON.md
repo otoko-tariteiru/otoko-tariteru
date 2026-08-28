@@ -1,7 +1,7 @@
 # CANON.md
 # 『それでも男は足りている』作品正史 / Single Source of Truth
 
-最終更新: 2026-08-26
+最終更新: 2026-08-29
 
 ## 0. 最重要ルール
 
@@ -33,6 +33,11 @@
 
 作品の中心の問い:
 男が足りているのに、なぜ1人だけ足りないのか。
+
+主人公の公開用表記:
+- 公開サイト・公開作品で主人公の名前を出す必要がある場合は「直人」(なおと)を使う。
+- 過去に使われた「しんぺい」等の別称は、公開物では使用しない。
+- 実名、SNS ID、その他個人を特定しうる呼称は公開しない。
 
 作品の基本姿勢:
 - 心理学の解説記事ではなく、具体的な出来事を積み重ねる。
@@ -301,8 +306,10 @@ note_url: UNVERIFIED
 excerpt: null
 
 ### Episode 06
-publication_status: UNVERIFIED_IN_CHAT
-working_title: 会えたのに、少し虚しかった
+status: published
+known_title: 会えたのに、少し虚しかった
+note_url: https://note.com/otoko_tariteru/n/n6d886a37ad58
+published_at: 2026-08-26T22:13:00+09:00
 
 核:
 - 主人公側から会いたいと連絡した夜
@@ -319,9 +326,21 @@ working_title: 会えたのに、少し虚しかった
 
 excerpt: null
 
+### Episode 07
+status: draft
+known_title: 名前を呼ばれたことがない
+note_url: UNVERIFIED
+published_at: UNVERIFIED
+
+メモ:
+- タイトルのみ確定。
+- note公開URL・公開日時が確認できるまで published にしない。
+- 本文・核・excerptはタイトルから逆算生成しない。
+
+excerpt: null
+
 ## 5. 今後の話数（working title）
 
-07 名前を呼ばれたことがない
 08 まつ毛が長い
 09 7年暮らす男の隣で
 10 大学1年生だった男
@@ -440,16 +459,23 @@ FEATUREDに使用可能:
 - 偽PV、偽読者数、偽レビュー、偽ランキング、偽メディア掲載
 - 予定タイトルから内容を逆算して生成した架空のexcerpt
 - AIが創作したセリフを実話として表示すること
+- 主人公の実名、および「しんぺい」等の非公開の別称(公開用表記は「直人」のみ)
 
 ## 11. 公開状態の扱い
 
 note:
-latest_confirmed_published_episode: 5
+latest_confirmed_published_episode: 6
 
 Episode 06:
-- 作品自体は作成・告知の文脈がある
-- このCANON作成時点で、note公開URLまたは公開完了の明示確認がない
-- よってサイトでは publication_status: unverified とする
+- 2026-08-29、note公開を確認済み。
+- note_url: https://note.com/otoko_tariteru/n/n6d886a37ad58
+- published_at: 2026-08-26T22:13:00+09:00
+- サイトでは publicationStatus: published とする。
+
+Episode 07:
+- タイトル「名前を呼ばれたことがない」は確定。
+- note公開URL・公開日時は未確認。
+- 確認できるまでサイトでは publicationStatus: draft を維持し、published にしない。
 
 NEXT EPISODE:
 - 過去日時をNEXTとして表示しない
