@@ -48,8 +48,9 @@ export const stories: Story[] = [
     slug: "ep02",
     publishedAt: "2026-08-13T21:00:00+09:00",
     publicationStatus: "published",
-    excerpt: null,
-    excerptApproved: false,
+    excerpt:
+      "位置情報は、それほど正確ではない。でも僕の頭は、知らない男だけを正確に彼の部屋へ運んだ。",
+    excerptApproved: true,
     noteUrl: "https://note.com/otoko_tariteru/n/na84be7b4061d",
     isPaid: false,
     series: "第1部",
@@ -72,14 +73,17 @@ export const stories: Story[] = [
   {
     id: "ep04",
     episode: 4,
-    // 公開済みタイトルは未確認。ユーザーが確認するまで「第4話」とだけ表示する。
-    title: null,
-    titleStatus: "unknown",
+    // HP作品タイトルとして確定(CANON.md §4 Episode 04, 2026-08-29 ユーザー承認)。
+    // note記事側の実タイトルが何であれ、サイト表示はこのタイトルを使う。
+    // 「東京ばな奈を実際にもらった」等の誤情報は本文にもexcerptにも入れない。
+    title: "お土産は、東京ばな奈1個でいい",
+    titleStatus: "confirmed",
     slug: "ep04",
     publishedAt: "2026-08-20T21:00:00+09:00",
     publicationStatus: "published",
-    excerpt: null,
-    excerptApproved: false,
+    excerpt:
+      "新宿にいることは分かった。東京で僕を思い出したかは、分からなかった。",
+    excerptApproved: true,
     noteUrl: "https://note.com/otoko_tariteru/n/n19f0284a9bca",
     isPaid: false,
     series: "第1部",
@@ -92,8 +96,9 @@ export const stories: Story[] = [
     slug: "ep05",
     publishedAt: "2026-08-24T21:00:00+09:00",
     publicationStatus: "published",
-    excerpt: null,
-    excerptApproved: false,
+    excerpt:
+      "向こうから誘われることは、ほとんどない。その夜、20歳から「添い寝募集」とLINEが来た。",
+    excerptApproved: true,
     // note URL未確認
     noteUrl: null,
     isPaid: false,

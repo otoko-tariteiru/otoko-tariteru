@@ -241,7 +241,8 @@ note_url: https://note.com/otoko_tariteru/n/na84be7b4061d
 - 「知らない駅で20歳が止まっていた」という話に変更しない
 - 知らない男性が実際に20歳と会っていたと断定しない
 
-excerpt: null
+excerpt: 位置情報は、それほど正確ではない。でも僕の頭は、知らない男だけを正確に彼の部屋へ運んだ。
+excerpt_approved: true（2026-08-29 ユーザー承認）
 
 ### Episode 03
 status: published
@@ -259,7 +260,9 @@ excerpt: null
 
 ### Episode 04
 status: published
-published_title: UNVERIFIED
+hp_title: お土産は、東京ばな奈1個でいい
+hp_title_status: confirmed（2026-08-29 ユーザー承認。サイト表示はこのタイトルを使う）
+note_published_title: UNVERIFIED（note記事側の実タイトルは未確認。HP表示には使わない/影響しない）
 note_url: https://note.com/otoko_tariteru/n/n19f0284a9bca
 
 核:
@@ -277,12 +280,11 @@ note_url: https://note.com/otoko_tariteru/n/n19f0284a9bca
 - 夜行バス利用を事実扱いしない
 - 旅行の同行者・目的を推測で書かない
 
-working_title_candidate:
-お土産は、東京ばな奈1個でいい
+※ HP作品タイトルは confirmed だが、これは「東京ばな奈を実際にもらった」ことを一切意味しない。
+※ 核の「実際に東京ばな奈を受け取っていない」は不変。§10 の禁止表現も不変。
 
-※ 公開タイトルを意味しない。ユーザーが確認するまでサイト表示は「第4話」等の中立表示。
-
-excerpt: null
+excerpt: 新宿にいることは分かった。東京で僕を思い出したかは、分からなかった。
+excerpt_approved: true（2026-08-29 ユーザー承認）
 
 ### Episode 05
 status: published
@@ -303,7 +305,8 @@ note_url: UNVERIFIED
 禁止:
 - この夜を主人公発の募集として描かない
 
-excerpt: null
+excerpt: 向こうから誘われることは、ほとんどない。その夜、20歳から「添い寝募集」とLINEが来た。
+excerpt_approved: true（2026-08-29 ユーザー承認）
 
 ### Episode 06
 status: published
