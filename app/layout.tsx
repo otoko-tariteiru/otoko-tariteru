@@ -27,6 +27,10 @@ export const metadata: Metadata = {
   icons: {
     icon: "/icon.svg",
   },
+  // Search Console verification tokenは環境変数が設定されている時だけ出力する(捏造しない)
+  verification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }
+    : undefined,
 };
 
 export const viewport: Viewport = {

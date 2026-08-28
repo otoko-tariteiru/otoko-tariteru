@@ -1,10 +1,18 @@
 import type { Metadata } from "next";
 import { siteConfig } from "@/data/siteConfig";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "FOR MEDIA",
-  description: "出版・映像化・取材・その他、作品に関するお問い合わせ。",
-};
+export function generateMetadata(): Metadata {
+  const base = buildPageMetadata({
+    path: "/media",
+    title: "FOR MEDIA",
+    description: "出版・映像化・取材・その他、作品に関するお問い合わせ。",
+  });
+  // 実際の問い合わせ先が確定するまでは「準備中」の空ページとしてインデックスさせない
+  return siteConfig.mediaEmail
+    ? base
+    : { ...base, robots: { index: false, follow: true } };
+}
 
 export default function MediaPage() {
   return (

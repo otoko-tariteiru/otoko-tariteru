@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import { getVisibleCharacters } from "@/data/characters";
 import Reveal from "@/components/Reveal";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "CHARACTERS",
+export const metadata: Metadata = buildPageMetadata({
+  path: "/characters",
+  title: "登場人物",
   description:
     "名前は変えている。ここでは、僕との関係だけを書く。「それでも男は足りている」登場人物紹介。",
-};
+});
 
 export default function CharactersPage() {
   const all = getVisibleCharacters();

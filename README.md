@@ -70,7 +70,7 @@ npm run start
 - `titleStatus`: 実際の公開タイトルが未確認なら `unknown` にする(画面には「第N話」とだけ表示される)。`working` はまだ確定していない仮タイトル。
 - `excerptApproved`: 抜粋文がCANONの事実と一致していると確認できるまでは `false` のままにする。AIに新しい抜粋を作文させない。
 - `published` にすると `/stories` の一覧と `/stories/[slug]` に自動で表示されます。
-- 公開したら `data/siteConfig.ts` の `currentEpisode` も更新してください(進捗表示に反映されます)。
+- トップページの「EPISODE XX / 16」「進捗%」「最新話リンク」、`/stories`の「全16話」、sitemap.xmlに含まれる話数は、すべて `publicationStatus` から自動算出されます。手入力の項目はありません。
 
 ---
 
@@ -152,6 +152,18 @@ siteUrl: "https://otoko-tariteru.com",
 
 ---
 
+## 9. Google Search Consoleへの登録方法
+
+1. [Google Search Console](https://search.google.com/search-console) でプロパティ(URLプレフィックス)としてサイトのURLを追加する。
+2. 所有権確認の方法で「HTMLタグ」を選ぶと、`<meta name="google-site-verification" content="xxxxxxxx" />` のトークンが表示される。
+3. `content="..."` の値だけをコピーし、Vercelのプロジェクト設定 → 「Environment Variables」に `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` という名前で追加して再デプロイする(ローカルで試す場合は `.env.local` に同名で追加)。
+4. 再デプロイ後、Search Console側で「確認」を押す。
+5. 確認できたら、Search Console左メニューの「サイトマップ」から `sitemap.xml` を送信する(URLは `https://<あなたのドメイン>/sitemap.xml`)。
+
+環境変数が未設定の間は verification タグ自体が出力されないため、未確認のトークンを埋め込んでしまう心配はありません。
+
+---
+
 ## ディレクトリ構成の要点
 
 ```
@@ -169,8 +181,8 @@ data/                コンテンツデータ(ここを編集すれば更新で�
   nightStories.ts    夜の話のデータ
   characters.ts      登場人物
   quotes.ts          差し込み用の短文・FEATURED STORY
-components/          Header / Footer / StoryRow / Reveal(スクロールフェード)
-lib/                 日付フォーマットなどの補助関数
+components/          Header / Footer / StoryRow / Reveal(スクロールフェード) / JsonLd(構造化データ)
+lib/                 日付フォーマット・SEOメタデータ生成などの補助関数
 ```
 
 ## 注意事項
@@ -178,3 +190,4 @@ lib/                 日付フォーマットなどの補助関数
 - 偽のPV数・レビュー・話題性の演出は実装していません(仕様上、意図的に入れていません)。
 - Google Analyticsなどの計測タグは未導入です。追加する場合は `app/layout.tsx` に計測タグを差し込んでください。
 - CMSは導入していません。更新は上記の通り `data/` 配下のファイル編集のみで完結します。
+- `/night`(夜の話が1本も公開されていない間)と `/media`(問い合わせ先が未設定の間)は自動的に `noindex` になります。中身が入り次第、自動でインデックス対象に戻ります。

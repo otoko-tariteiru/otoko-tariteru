@@ -5,9 +5,7 @@ export const siteConfig = {
   tagline: "男には困っていない。",
   subTagline: "20歳の男には困っている。",
 
-  // 連載進捗
-  currentEpisode: 5,
-  totalEpisodes: 16,
+  // 連載進捗(現在話数・進捗%は data/stories.ts から自動算出する。ここでは手入力しない)
   seriesPart: "第1部",
   seriesStatus: "連載中",
 

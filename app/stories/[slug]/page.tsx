@@ -1,8 +1,16 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { stories, getStoryBySlug, displayTitle } from "@/data/stories";
+import {
+  stories,
+  getStoryBySlug,
+  displayTitle,
+  displayHeading,
+  getAdjacentPublishedStories,
+} from "@/data/stories";
+import { siteConfig } from "@/data/siteConfig";
 import { formatDateDots, padEpisode } from "@/lib/format";
+import JsonLd from "@/components/JsonLd";
 
 export function generateStaticParams() {
   return stories.map((s) => ({ slug: s.slug }));
@@ -17,15 +25,33 @@ export async function generateMetadata({
   const story = getStoryBySlug(slug);
   if (!story) return {};
 
-  const title = displayTitle(story);
+  const heading = displayHeading(story);
   const description =
     story.excerptApproved && story.excerpt
       ? story.excerpt
-      : `第${story.episode}話「${title}」`;
+      : `${heading}。${siteConfig.siteTitle}。`;
+  const path = `/stories/${story.slug}`;
 
   return {
-    title: `第${story.episode}話「${title}」`,
+    title: heading,
     description,
+    alternates: { canonical: path },
+    openGraph: {
+      type: "article",
+      title: heading,
+      description,
+      url: path,
+      publishedTime: story.publishedAt ?? undefined,
+      siteName: siteConfig.siteTitle,
+      locale: "ja_JP",
+      images: ["/opengraph-image"],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: heading,
+      description,
+      images: ["/opengraph-image"],
+    },
   };
 }
 
@@ -39,10 +65,68 @@ export default async function StoryPage({
   if (!story) notFound();
 
   const title = displayTitle(story);
+  const heading = displayHeading(story);
+  const path = `/stories/${story.slug}`;
   const isReadable = story.publicationStatus === "published";
+  const { prev, next } = getAdjacentPublishedStories(story.episode);
+
+  const articleJsonLd =
+    isReadable && story.publishedAt
+      ? {
+          "@context": "https://schema.org",
+          "@type": "Article",
+          headline: heading,
+          description:
+            story.excerptApproved && story.excerpt
+              ? story.excerpt
+              : heading,
+          datePublished: story.publishedAt,
+          dateModified: story.publishedAt,
+          inLanguage: "ja-JP",
+          mainEntityOfPage: {
+            "@type": "WebPage",
+            "@id": `${siteConfig.siteUrl}${path}`,
+          },
+          isPartOf: {
+            "@type": "CreativeWorkSeries",
+            name: siteConfig.siteTitle,
+            url: siteConfig.siteUrl,
+          },
+        }
+      : null;
+
+  const breadcrumbJsonLd = isReadable
+    ? {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: siteConfig.siteUrl,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "STORIES",
+            item: `${siteConfig.siteUrl}/stories`,
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: heading,
+            item: `${siteConfig.siteUrl}${path}`,
+          },
+        ],
+      }
+    : null;
 
   return (
     <div className="mx-auto max-w-xl px-6 py-20 sm:px-8 sm:py-28">
+      {articleJsonLd && <JsonLd data={articleJsonLd} />}
+      {breadcrumbJsonLd && <JsonLd data={breadcrumbJsonLd} />}
+
       <Link
         href="/stories"
         className="focus-line text-[12px] tracking-wide text-ink-soft hover:text-ink"
@@ -99,6 +183,27 @@ export default async function StoryPage({
               </p>
             )}
           </div>
+
+          {(prev || next) && (
+            <div className="mt-16 flex flex-col gap-3 border-t border-line pt-10 text-[13px] tracking-wide text-ink-soft">
+              {prev && (
+                <Link
+                  href={`/stories/${prev.slug}`}
+                  className="focus-line hover:text-ink"
+                >
+                  ← {displayHeading(prev)}
+                </Link>
+              )}
+              {next && (
+                <Link
+                  href={`/stories/${next.slug}`}
+                  className="focus-line hover:text-ink"
+                >
+                  {displayHeading(next)} →
+                </Link>
+              )}
+            </div>
+          )}
         </>
       )}
     </div>

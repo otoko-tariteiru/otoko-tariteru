@@ -1,11 +1,18 @@
 import type { Metadata } from "next";
 import { nightStories } from "@/data/nightStories";
 import { siteConfig } from "@/data/siteConfig";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "夜の話",
-  description: "無料の本編では閉じたドアの内側。夜の話は有料の番外編です。",
-};
+export function generateMetadata(): Metadata {
+  const hasPublished = nightStories.some((n) => n.status === "published");
+  const base = buildPageMetadata({
+    path: "/night",
+    title: "夜の話",
+    description: "無料の本編では閉じたドアの内側。夜の話は有料の番外編です。",
+  });
+  // 公開作品が1つもない間は、near-empty pageとしてインデックスさせない
+  return hasPublished ? base : { ...base, robots: { index: false, follow: true } };
+}
 
 export default function NightPage() {
   return (

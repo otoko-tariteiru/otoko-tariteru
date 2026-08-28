@@ -263,6 +263,15 @@ export function displayTitle(story: Story): string {
   return story.title;
 }
 
+// タイトル未確認話は「第4話」、確認済みは「第4話「タイトル」」の形にする。
+// displayTitle()の結果をそのまま「」で囲むと未確認話が「第4話「第4話」」と二重になるため分岐する。
+export function displayHeading(story: Story): string {
+  if (story.titleStatus === "unknown" || !story.title) {
+    return `第${story.episode}話`;
+  }
+  return `第${story.episode}話「${story.title}」`;
+}
+
 export function getPublishedStories(): Story[] {
   return stories
     .filter((s) => s.publicationStatus === "published")
@@ -282,4 +291,30 @@ export function getLatestStory(): Story {
 
 export function getStoryBySlug(slug: string): Story | undefined {
   return stories.find((s) => s.slug === slug);
+}
+
+// トップページのEPISODE表示・進捗%はここから自動算出する。手入力しない。
+export function getLatestPublishedEpisode(): number {
+  const published = stories.filter((s) => s.publicationStatus === "published");
+  if (published.length === 0) return 0;
+  return Math.max(...published.map((s) => s.episode));
+}
+
+export function getTotalEpisodes(): number {
+  return stories.length;
+}
+
+export function getAdjacentPublishedStories(episode: number): {
+  prev: Story | null;
+  next: Story | null;
+} {
+  const published = stories
+    .filter((s) => s.publicationStatus === "published")
+    .sort((a, b) => a.episode - b.episode);
+  const idx = published.findIndex((s) => s.episode === episode);
+  if (idx === -1) return { prev: null, next: null };
+  return {
+    prev: idx > 0 ? published[idx - 1] : null,
+    next: idx < published.length - 1 ? published[idx + 1] : null,
+  };
 }

@@ -1,19 +1,55 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/data/siteConfig";
-import { getLatestStory, stories } from "@/data/stories";
+import {
+  getLatestStory,
+  getLatestPublishedEpisode,
+  getTotalEpisodes,
+  stories,
+} from "@/data/stories";
 import { featuredStory, quotes } from "@/data/quotes";
 import { formatMonthDay, formatTime, padEpisode } from "@/lib/format";
 import Reveal from "@/components/Reveal";
+import JsonLd from "@/components/JsonLd";
+
+export const metadata: Metadata = {
+  title: `${siteConfig.siteTitle}｜公式サイト`,
+  description: siteConfig.description,
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    title: `${siteConfig.siteTitle}｜公式サイト`,
+    description: siteConfig.description,
+    url: "/",
+    siteName: siteConfig.siteTitle,
+    locale: "ja_JP",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${siteConfig.siteTitle}｜公式サイト`,
+    description: siteConfig.description,
+  },
+};
 
 export default function Home() {
   const latest = getLatestStory();
   const firstEpisode = stories.find((s) => s.episode === 1)!;
-  const progressPercent = Math.round(
-    (siteConfig.currentEpisode / siteConfig.totalEpisodes) * 100
-  );
+  const currentEpisode = getLatestPublishedEpisode();
+  const totalEpisodes = getTotalEpisodes();
+  const progressPercent = Math.round((currentEpisode / totalEpisodes) * 100);
+
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: siteConfig.siteTitle,
+    url: siteConfig.siteUrl,
+    description: siteConfig.description,
+    inLanguage: "ja-JP",
+  };
 
   return (
     <>
+      <JsonLd data={websiteJsonLd} />
       {/* HERO */}
       <section className="flex min-h-[100svh] flex-col items-center justify-center px-6 text-center">
         <Reveal>
@@ -104,8 +140,8 @@ export default function Home() {
           <div className="mt-10">
             <div className="flex items-baseline justify-between text-[12px] tracking-wide text-ink-soft">
               <span>
-                EPISODE {padEpisode(siteConfig.currentEpisode)} /{" "}
-                {padEpisode(siteConfig.totalEpisodes)}
+                EPISODE {padEpisode(currentEpisode)} /{" "}
+                {padEpisode(totalEpisodes)}
               </span>
               <span>{progressPercent}%</span>
             </div>

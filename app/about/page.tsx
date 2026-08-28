@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "ABOUT",
+export const metadata: Metadata = buildPageMetadata({
+  path: "/about",
+  title: "この連載について",
   description:
     "36歳、バイ。男には困っていない。それでも、1人の20歳からのLINEを待っている。",
-};
+});
 
 export default function AboutPage() {
   return (
