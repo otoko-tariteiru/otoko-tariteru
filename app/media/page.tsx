@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { siteConfig } from "@/data/siteConfig";
 import { buildPageMetadata } from "@/lib/seo";
+import { isMediaIndexable } from "@/lib/indexability";
 
 export function generateMetadata(): Metadata {
   const base = buildPageMetadata({
@@ -9,7 +10,7 @@ export function generateMetadata(): Metadata {
     description: "出版・映像化・取材・その他、作品に関するお問い合わせ。",
   });
   // 実際の問い合わせ先が確定するまでは「準備中」の空ページとしてインデックスさせない
-  return siteConfig.mediaEmail
+  return isMediaIndexable()
     ? base
     : { ...base, robots: { index: false, follow: true } };
 }
