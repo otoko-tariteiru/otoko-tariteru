@@ -327,7 +327,8 @@ published_at: 2026-08-26T22:13:00+09:00
 - 20歳側からその夜に性行為を開始したことにしない
 - 「セックスが嫌だから虚しかった」という話にしない
 
-excerpt: null
+excerpt: 会えた。それでも、呼ばれた夜の方が満たされていた。
+excerpt_approved: true（2026-08-29 ユーザー承認）
 
 ### Episode 07
 status: draft
