@@ -1,7 +1,7 @@
 # CANON.md
 # 『それでも男は足りている』作品正史 / Single Source of Truth
 
-最終更新: 2026-08-29
+最終更新: 2026-08-31
 
 ## 0. 最重要ルール
 
@@ -331,21 +331,33 @@ excerpt: 会えた。それでも、呼ばれた夜の方が満たされてい�
 excerpt_approved: true（2026-08-29 ユーザー承認）
 
 ### Episode 07
-status: draft
+status: published
 known_title: 名前を呼ばれたことがない
-note_url: UNVERIFIED
-published_at: UNVERIFIED
+note_url: https://note.com/otoko_tariteru/n/n0d1f1cf4c8d4
+published_at: 2026-08-28T18:56:00+09:00
 
 メモ:
-- タイトルのみ確定。
-- note公開URL・公開日時が確認できるまで published にしない。
+- 2026-08-31、note公開を確認済み。
+- 公開作品内で主人公の名前が必要な場合は「直人」を使う(§1)。実名・内部名は公開しない。
+- 本文・核はタイトルから逆算生成しない。
+
+excerpt: 同じベッドでは寝る。裸にもなる。名前だけは、まだ他人のままだ。
+excerpt_approved: true（2026-08-31 ユーザー承認。公開済み本文末尾からの抜粋であり、新規創作ではない）
+
+### Episode 08
+status: draft
+known_title: まつ毛が長い
+
+メモ:
+- タイトルは確定。
+- note公開URL・公開日時・公開完了報告が未確認のため published にしない。
+- sitemap 非掲載。トップページの最新話に使わない。
 - 本文・核・excerptはタイトルから逆算生成しない。
 
 excerpt: null
 
 ## 5. 今後の話数（working title）
 
-08 まつ毛が長い
 09 7年暮らす男の隣で
 10 大学1年生だった男
 11 愛知にいない男
@@ -468,7 +480,7 @@ FEATUREDに使用可能:
 ## 11. 公開状態の扱い
 
 note:
-latest_confirmed_published_episode: 6
+latest_confirmed_published_episode: 7
 
 Episode 06:
 - 2026-08-29、note公開を確認済み。
@@ -477,9 +489,15 @@ Episode 06:
 - サイトでは publicationStatus: published とする。
 
 Episode 07:
-- タイトル「名前を呼ばれたことがない」は確定。
-- note公開URL・公開日時は未確認。
-- 確認できるまでサイトでは publicationStatus: draft を維持し、published にしない。
+- 2026-08-31、note公開を確認済み。
+- note_url: https://note.com/otoko_tariteru/n/n0d1f1cf4c8d4
+- published_at: 2026-08-28T18:56:00+09:00
+- サイトでは publicationStatus: published とする。
+
+Episode 08:
+- タイトル「まつ毛が長い」は確定。
+- note公開URL・公開日時・公開完了報告は未確認。
+- 確認できるまでサイトでは publicationStatus: draft を維持し、published にしない。sitemap にも入れない。
 
 NEXT EPISODE:
 - 過去日時をNEXTとして表示しない

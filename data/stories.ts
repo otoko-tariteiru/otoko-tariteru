@@ -122,23 +122,24 @@ export const stories: Story[] = [
   {
     id: "ep07",
     episode: 7,
-    // タイトルは確定(CANON.md §4 Episode 07)。note公開URL/日時は未確認のため draft を維持する。
+    // note公開を確認済み(CANON.md §4 Episode 07)。excerptは公開済み本文末尾からの抜粋(ユーザー提供)。
     title: "名前を呼ばれたことがない",
     titleStatus: "confirmed",
     slug: "ep07",
-    publishedAt: null,
-    publicationStatus: "draft",
-    excerpt: null,
-    excerptApproved: false,
-    noteUrl: null,
+    publishedAt: "2026-08-28T18:56:00+09:00",
+    publicationStatus: "published",
+    excerpt: "同じベッドでは寝る。裸にもなる。名前だけは、まだ他人のままだ。",
+    excerptApproved: true,
+    noteUrl: "https://note.com/otoko_tariteru/n/n0d1f1cf4c8d4",
     isPaid: false,
     series: "第1部",
   },
   {
     id: "ep08",
     episode: 8,
+    // タイトルは確定(CANON.md §4 Episode 08)。note公開URL/日時が未確認のため draft を維持する。
     title: "まつ毛が長い",
-    titleStatus: "working",
+    titleStatus: "confirmed",
     slug: "ep08",
     publishedAt: null,
     publicationStatus: "draft",
