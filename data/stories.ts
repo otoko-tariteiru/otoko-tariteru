@@ -137,15 +137,17 @@ export const stories: Story[] = [
   {
     id: "ep08",
     episode: 8,
-    // タイトルは確定(CANON.md §4 Episode 08)。note公開URL/日時が未確認のため draft を維持する。
+    // note公開を確認済み(CANON.md §4 Episode 08)。
+    // publishedAt は note の JSON-LD datePublished から取得: 2026-08-30T19:56:42.000+09:00
+    // excerpt は公開済み本文末尾からの抜粋(ユーザー提供・承認済み)。
     title: "まつ毛が長い",
     titleStatus: "confirmed",
     slug: "ep08",
-    publishedAt: null,
-    publicationStatus: "draft",
-    excerpt: null,
-    excerptApproved: false,
-    noteUrl: null,
+    publishedAt: "2026-08-30T19:56:42+09:00",
+    publicationStatus: "published",
+    excerpt: "20歳は、まつ毛が長い。かなり長い。たぶん僕は、もうしばらく困る。",
+    excerptApproved: true,
+    noteUrl: "https://note.com/otoko_tariteru/n/n98ea4e8b15a5",
     isPaid: false,
     series: "第1部",
   },
